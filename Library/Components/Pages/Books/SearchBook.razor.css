@@ -1,0 +1,53 @@
+﻿.book-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.book-card-link {
+    text-decoration: none; /* Remove default underline from links */
+    color: inherit; /* Inherit text color from parent */
+}
+
+.book-card {
+    border-radius: 8px;
+    padding: 15px;
+    max-width: 220px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content */
+    cursor: pointer; /* Change cursor to pointer to indicate clickability */
+}
+
+    .book-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .book-card img {
+        max-width: 100%;
+        max-height: 200px; /* Limit image height */
+        object-fit: cover;
+        border-radius: 4px;
+        transition: transform 0.3s ease;
+    }
+
+        .book-card img:hover {
+            transform: scale(1.05); /* Optional: Zoom effect for image on hover */
+        }
+
+    .book-card h3 {
+        font-size: 1em;
+        font-weight:bold;
+        margin: 10px 0;
+    }
+
+    .book-card p {
+        font-size: 0.9em;
+        margin: 5px 0;
+    }

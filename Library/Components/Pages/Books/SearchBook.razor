@@ -1,0 +1,67 @@
+﻿@page "/search-book"
+@using Library.Services.Books
+@inject Library.Services.Books.SearchBook searchBookService
+
+<h1>Book Search</h1>
+
+<div>
+    <input @bind="searchQuery" placeholder="Search for books..." />
+    <button @onclick="SearchBooks">Search</button>
+</div>
+
+@if (isLoading)
+{
+    <p>Loading...</p>
+}
+else if (books == null || books.Count == 0)
+{
+    <p>No books found.</p>
+}
+else
+{
+    <div class="book-results">
+        @foreach (var book in books)
+        {
+            <a href="book-info/@book.BookId" target="_blank" class="book-card-link">
+                <div class="book-card">
+                    <img src="@book.Cover" alt="@book.Name" />
+                    <h3>@book.Name</h3>
+                    <p>Authors: @string.Join(", ", book.Authors)</p>
+                    <p>Rating: @book.Rating</p>
+                </div>
+            </a>
+        }
+    </div>
+
+}
+
+@code {
+    private string searchQuery = "Atomic Habits"; // Default search query
+    private List<Book> books = new List<Book>(); // Initialize to prevent null reference
+    private bool isLoading = false;
+
+    private async Task SearchBooks()
+    {
+        isLoading = true;
+        try
+        {
+            books = await searchBookService.SearchBooksAsync(searchQuery);
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions (e.g., log the error)
+            Console.WriteLine($"Error searching books: {ex.Message}");
+            books = new List<Book>(); // Ensure books is initialized
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await SearchBooks();
+    }
+
+}
