@@ -1,26 +1,31 @@
 ﻿@page "/book-info/{bookId:int}"
 @inject Library.Services.Books.GetBookInfo getBookInfoService
 
-<h3>Book Information</h3>
-@if (isLoading)
-{
-    <p>Loading...</p>
-}
-else if (bookInfoItem == null)
-{
-    <p>No book information found.</p>
-}
-else
-{
-    <div class="book-card">
-        <img src="@bookInfoItem.Cover" alt="@bookInfoItem.Name" />
-        <h3>@bookInfoItem.Name</h3>
-        <p>Authors: @string.Join(", ", bookInfoItem.Authors)</p>
-        <p>Rating: @bookInfoItem.Rating</p>
-        <p>Pages: @bookInfoItem.Pages</p>
-        <p>Synopsis: @bookInfoItem.Synopsis</p>
-    </div>
-}
+<div class="book-info-container">
+    @if (isLoading)
+    {
+        <p>Loading...</p>
+    }
+    else if (bookInfoItem == null)
+    {
+        <p>No book information found.</p>
+    }
+    else
+    {
+        <div class="book-info-card">
+            <div class="book-cover">
+                <img src="@bookInfoItem.Cover" alt="@bookInfoItem.Name" />
+            </div>
+            <div class="book-details">
+                <h2>@bookInfoItem.Name</h2>
+                <p class="authors"><strong>Authors:</strong> @string.Join(", ", bookInfoItem.Authors)</p>
+                <p class="rating"><strong>Rating:</strong> @bookInfoItem.Rating</p>
+                <p class="pages"><strong>Pages:</strong> @bookInfoItem.Pages</p>
+                <p class="synopsis"><strong>Synopsis:</strong> @bookInfoItem.Synopsis</p>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
     private BookInfoItems bookInfoItem; // Changed to single object

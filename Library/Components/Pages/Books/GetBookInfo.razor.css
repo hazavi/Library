@@ -3,18 +3,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
-    background-color: #f4f4f9; /* Light background for contrast */
+
 }
 
 .book-info-card {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column; /* Change to column to stack elements */
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Softer shadow */
-    max-width: 900px;
-    margin: 20px;
+    max-width: 1080px; /* Reduced max-width for a more compact card */
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -25,30 +23,28 @@
     }
 
 .book-cover {
-    flex: 1 1 40%;
-    max-width: 350px;
+    flex: 1;
+    max-width: 250px; /* Reduced maximum width */
+    margin: 0 auto; /* Center the cover image */
     overflow: hidden; /* Ensures images fit within rounded corners */
 }
 
     .book-cover img {
         width: 100%;
         height: auto;
-        border-radius: 12px 0 0 12px;
         object-fit: cover;
+        border-radius: 12px;
         transition: transform 0.3s ease; /* Smooth zoom effect */
     }
 
-        .book-cover img:hover {
-            transform: scale(1.05); /* Zoom effect on hover */
-        }
 
 .book-details {
-    flex: 1 1 60%;
-    padding: 30px;
+    padding: 20px 30px; /* Increased padding for a cleaner look */
+    text-align: center; /* Center align the text */
 }
 
     .book-details h2 {
-        font-size: 2em;
+        font-size: 1.8em;
         margin-bottom: 15px;
         color: #333;
         font-weight: 600;
@@ -57,23 +53,36 @@
 
     .book-details p {
         margin: 10px 0;
-        color: #666;
+        color: #333;
         line-height: 1.6;
     }
 
         .book-details p strong {
             color: #222;
-            font-weight: 500;
+            font-weight: bold;
         }
 
-.authors, .rating, .pages, .synopsis {
-    font-size: 1.1em;
+.authors, .rating, .pages {
+    font-size: 1em;
 }
+
+/* Synopsis section */
+.book-synopsis {
+    padding: 20px 30px;
+    border-top: 1px solid #eee; /* Separator line */
+    text-align: center; /* Center align the text */
+}
+
+    .book-synopsis h3 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+        color: #333;
+    }
 
 .synopsis {
     text-align: justify;
     line-height: 1.75;
-    margin-top: 20px; /* Spacing between details and synopsis */
+    color: #555;
 }
 
 /* Add responsiveness */
@@ -87,7 +96,8 @@
         border-radius: 12px 12px 0 0;
     }
 
-    .book-details {
-        padding: 20px;
+    .book-details,
+    .book-synopsis {
+        padding: 15px;
     }
 }
