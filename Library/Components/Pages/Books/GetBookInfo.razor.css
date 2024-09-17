@@ -1,0 +1,93 @@
+﻿/* Styles for the GetBookInfo component */
+.book-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f4f4f9; /* Light background for contrast */
+}
+
+.book-info-card {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Softer shadow */
+    max-width: 900px;
+    margin: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .book-info-card:hover {
+        transform: translateY(-5px); /* Slight lift on hover */
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+.book-cover {
+    flex: 1 1 40%;
+    max-width: 350px;
+    overflow: hidden; /* Ensures images fit within rounded corners */
+}
+
+    .book-cover img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px 0 0 12px;
+        object-fit: cover;
+        transition: transform 0.3s ease; /* Smooth zoom effect */
+    }
+
+        .book-cover img:hover {
+            transform: scale(1.05); /* Zoom effect on hover */
+        }
+
+.book-details {
+    flex: 1 1 60%;
+    padding: 30px;
+}
+
+    .book-details h2 {
+        font-size: 2em;
+        margin-bottom: 15px;
+        color: #333;
+        font-weight: 600;
+        line-height: 1.2;
+    }
+
+    .book-details p {
+        margin: 10px 0;
+        color: #666;
+        line-height: 1.6;
+    }
+
+        .book-details p strong {
+            color: #222;
+            font-weight: 500;
+        }
+
+.authors, .rating, .pages, .synopsis {
+    font-size: 1.1em;
+}
+
+.synopsis {
+    text-align: justify;
+    line-height: 1.75;
+    margin-top: 20px; /* Spacing between details and synopsis */
+}
+
+/* Add responsiveness */
+@media (max-width: 768px) {
+    .book-info-card {
+        flex-direction: column;
+    }
+
+    .book-cover {
+        max-width: 100%;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .book-details {
+        padding: 20px;
+    }
+}

@@ -1,34 +1,29 @@
 ﻿@page "/book-info/{bookId:int}"
 @inject Library.Services.Books.GetBookInfo getBookInfoService
 
-<h3>GetBookInfo</h3>
+<h3>Book Information</h3>
 @if (isLoading)
 {
     <p>Loading...</p>
 }
-else if (bookInfoItems == null)
+else if (bookInfoItem == null)
 {
-    <p>No books found.</p>
+    <p>No book information found.</p>
 }
 else
 {
-    <div class="book-results">
-        @foreach (var bookInfoItem in bookInfoItems)
-        {
-                <div class="book-card">
-                <img src="@bookInfoItem.Cover" alt="@bookInfoItem.Name" />
-                <h3>@bookInfoItem.Name</h3>
-                <p>Authors: @string.Join(", ", bookInfoItem.Authors)</p>
-                <p>Rating: @bookInfoItem.Rating</p>
-                <p>Pages: @bookInfoItem.Pages</p>
-                <p>Synopsis: @bookInfoItem.Synopsis</p>
-                </div>
-        }
+    <div class="book-card">
+        <img src="@bookInfoItem.Cover" alt="@bookInfoItem.Name" />
+        <h3>@bookInfoItem.Name</h3>
+        <p>Authors: @string.Join(", ", bookInfoItem.Authors)</p>
+        <p>Rating: @bookInfoItem.Rating</p>
+        <p>Pages: @bookInfoItem.Pages</p>
+        <p>Synopsis: @bookInfoItem.Synopsis</p>
     </div>
-
 }
+
 @code {
-    private List<BookInfoItems> bookInfoItems = new List<BookInfoItems>(); // Initialize to prevent null reference
+    private BookInfoItems bookInfoItem; // Changed to single object
     private bool isLoading = false;
 
     [Parameter]
@@ -38,17 +33,18 @@ else
     {
         await GetBook();
     }
+
     private async Task GetBook()
     {
         isLoading = true;
         try
         {
-            bookInfoItems = await getBookInfoService.GetBookInfoAsync(bookId);
+            bookInfoItem = await getBookInfoService.GetBookInfoAsync(bookId);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error searching books: {ex.Message}");
-            bookInfoItems = new List<BookInfoItems>(); // Ensure books is initialized
+            Console.WriteLine($"Error fetching book information: {ex.Message}");
+            bookInfoItem = null; // Set to null on error
         }
         finally
         {

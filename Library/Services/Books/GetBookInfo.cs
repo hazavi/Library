@@ -11,7 +11,7 @@ namespace Library.Services.Books
             _httpClient = httpClient;
         }
 
-        public async Task<List<BookInfoItems>> GetBookInfoAsync(int bookId)
+        public async Task<BookInfoItems> GetBookInfoAsync(int bookId)
         {
             var request = new HttpRequestMessage
             {
@@ -30,25 +30,23 @@ namespace Library.Services.Books
                 {
                     response.EnsureSuccessStatusCode();
                     var body = await response.Content.ReadAsStringAsync();
-                    var books = JsonConvert.DeserializeObject<List<BookInfoItems>>(body);
 
-                    // Ensure that each book has a non-null Authors list
-                    if (books != null)
+                    var book = JsonConvert.DeserializeObject<BookInfoItems>(body); // Deserialize to a single object
+
+                    // Ensure that the book has a non-null Authors list
+                    if (book != null)
                     {
-                        foreach (var book in books)
-                        {
-                            book.Authors ??= new List<string>(); // Initialize if null
-                        }
+                        book.Authors ??= new List<string>(); // Initialize if null
                     }
 
-                    return books ?? new List<BookInfoItems>(); // Return an empty list if null
+                    return book;
                 }
             }
             catch (Exception ex)
             {
                 // Handle the exception (e.g., log the error)
-                Console.WriteLine($"Error fetching books: {ex.Message}");
-                return new List<BookInfoItems>(); // Return an empty list on error
+                Console.WriteLine($"Error fetching book: {ex.Message}");
+                return null; // Return null on error
             }
         }
     }
